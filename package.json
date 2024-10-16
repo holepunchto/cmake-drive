@@ -1,0 +1,22 @@
+{
+  "name": "cmake-drive",
+  "version": "1.0.0",
+  "description": "Drive utilities for CMake",
+  "files": [
+    "*.cmake",
+    "*.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/holepunchto/cmake-drive.git"
+  },
+  "author": "Holepunch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/holepunchto/cmake-drive/issues"
+  },
+  "homepage": "https://github.com/holepunchto/cmake-drive#readme",
+  "dependencies": {
+    "bare-dev": "^0.14.5"
+  }
+}
