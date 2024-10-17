@@ -5,7 +5,7 @@ npm i cmake-drive
 ```
 
 ```cmake
-find_package(drive REQUIRED PATHS node_modules/cmake-drive)
+find_package(cmake-drive REQUIRED PATHS node_modules/cmake-drive)
 ```
 
 ## API
