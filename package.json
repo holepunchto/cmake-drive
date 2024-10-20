@@ -6,6 +6,9 @@
     "*.cmake",
     "*.js"
   ],
+  "scripts": {
+    "test": "standard"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/holepunchto/cmake-drive.git"
@@ -17,6 +20,13 @@
   },
   "homepage": "https://github.com/holepunchto/cmake-drive#readme",
   "dependencies": {
-    "bare-dev": "^0.14.5"
+    "corestore": "^6.18.4",
+    "hypercore-id-encoding": "^1.3.0",
+    "hyperdrive": "^11.13.0",
+    "hyperswarm": "^4.8.4",
+    "localdrive": "^1.12.1"
+  },
+  "devDependencies": {
+    "standard": "^17.1.2"
   }
 }
