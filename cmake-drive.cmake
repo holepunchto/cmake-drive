@@ -4,14 +4,14 @@ set(drive_module_dir "${CMAKE_CURRENT_LIST_DIR}")
 
 set(DRIVE_CORESTORE_DIR "$ENV{DRIVE_CORESTORE_DIR}" CACHE PATH "The path to the Corestore storage directory")
 
-if(NOT DRIVE_CORESTORE_DIR)
-  set(DRIVE_CORESTORE_DIR "corestore" CACHE PATH "The path to the Corestore storage directory")
-endif()
-
 function(mirror_drive)
   cmake_parse_arguments(
     PARSE_ARGV 0 ARGV "" "SOURCE;DESTINATION;PREFIX;CHECKOUT;WORKING_DIRECTORY" ""
   )
+
+  if(NOT DRIVE_CORESTORE_DIR)
+    set(DRIVE_CORESTORE_DIR "${CMAKE_BINARY_DIR}/corestore")
+  endif()
 
   if(ARGV_WORKING_DIRECTORY)
     cmake_path(ABSOLUTE_PATH ARGV_WORKING_DIRECTORY BASE_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}" NORMALIZE)
@@ -54,10 +54,16 @@ function(mirror_drive)
 
   execute_process(
     COMMAND "${node}" "${drive_module_dir}/mirror.js" ${args}
+    RESULT_VARIABLE status
     OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_VARIABLE error
     WORKING_DIRECTORY "${ARGV_WORKING_DIRECTORY}"
   )
+
+  if(NOT status EQUAL 0)
+    message(FATAL_ERROR "${error}")
+  endif()
 
   message(CONFIGURE_LOG
     "Mirrored drive ${ARGV_SOURCE} into ${ARGV_DESTINATION}\n"
