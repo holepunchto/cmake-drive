@@ -2,6 +2,12 @@ include_guard()
 
 set(drive_module_dir "${CMAKE_CURRENT_LIST_DIR}")
 
+set(DRIVE_CORESTORE_DIR "$ENV{DRIVE_CORESTORE_DIR}" CACHE PATH "The path to the Corestore storage directory")
+
+if(NOT DRIVE_CORESTORE_DIR)
+  set(DRIVE_CORESTORE_DIR "corestore" CACHE PATH "The path to the Corestore storage directory")
+endif()
+
 function(mirror_drive)
   cmake_parse_arguments(
     PARSE_ARGV 0 ARGV "" "SOURCE;DESTINATION;PREFIX;CHECKOUT;WORKING_DIRECTORY" ""
@@ -22,6 +28,7 @@ function(mirror_drive)
   endif()
 
   set(args
+    "${DRIVE_CORESTORE_DIR}"
     "${ARGV_WORKING_DIRECTORY}"
     "${ARGV_PREFIX}"
     "${ARGV_CHECKOUT}"
