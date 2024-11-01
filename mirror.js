@@ -7,6 +7,7 @@ const Localdrive = require('localdrive')
 const id = require('hypercore-id-encoding')
 
 const [
+  storage,
   cwd,
   prefix,
   checkout,
@@ -23,7 +24,7 @@ const symbols = {
 mirror(source, destination)
 
 async function mirror (source, destination) {
-  const store = new Corestore(path.resolve(cwd, 'corestore'))
+  const store = new Corestore(path.resolve(cwd, storage))
   const swarm = new Hyperswarm().on('connection', (socket) => store.replicate(socket))
 
   source = await open(source, { store, swarm, cwd })
