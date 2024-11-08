@@ -10,7 +10,7 @@ find_package(cmake-drive REQUIRED PATHS node_modules/cmake-drive)
 
 ## API
 
-#### `mirror_drive(SOURCE <key | path> DESTINATION <key | path> [PREFIX <path>] [CHECKOUT <length>] [WORKING_DIRECTORY <path>])`
+#### `mirror_drive(SOURCE <key | path> DESTINATION <key | path> [PREFIX <path>] [CHECKOUT <length>] [TIMEOUT <seconds>] [WORKING_DIRECTORY <path>])`
 
 ## License
 

@@ -6,7 +6,7 @@ set(DRIVE_CORESTORE_DIR "$ENV{DRIVE_CORESTORE_DIR}" CACHE PATH "The path to the 
 
 function(mirror_drive)
   cmake_parse_arguments(
-    PARSE_ARGV 0 ARGV "" "SOURCE;DESTINATION;PREFIX;CHECKOUT;WORKING_DIRECTORY" ""
+    PARSE_ARGV 0 ARGV "" "SOURCE;DESTINATION;PREFIX;CHECKOUT;TIMEOUT;WORKING_DIRECTORY" ""
   )
 
   if(NOT DRIVE_CORESTORE_DIR)
@@ -25,6 +25,10 @@ function(mirror_drive)
 
   if(NOT ARGV_CHECKOUT)
     set(ARGV_CHECKOUT 0)
+  endif()
+
+  if(NOT ARGV_TIMEOUT)
+    set(ARGV_TIMEOUT 120)
   endif()
 
   set(args
@@ -58,6 +62,7 @@ function(mirror_drive)
     OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_VARIABLE error
+    TIMEOUT ${ARGV_TIMEOUT}
     WORKING_DIRECTORY "${ARGV_WORKING_DIRECTORY}"
   )
 
