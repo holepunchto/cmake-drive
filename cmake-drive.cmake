@@ -28,7 +28,7 @@ function(mirror_drive)
   endif()
 
   if(NOT ARGV_TIMEOUT)
-    set(ARGV_TIMEOUT 120)
+    set(ARGV_TIMEOUT 600)
   endif()
 
   set(args
