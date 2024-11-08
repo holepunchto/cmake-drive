@@ -54,6 +54,10 @@ function(mirror_drive)
     )
   endif()
 
+  if(CMAKE_MESSAGE_LOG_LEVEL MATCHES "VERBOSE")
+    set(ECHO_OUTPUT_VARIABLE ECHO_OUTPUT_VARIABLE)
+  endif()
+
   message(STATUS "Mirroring drive ${ARGV_SOURCE} into ${ARGV_DESTINATION}")
 
   execute_process(
@@ -61,6 +65,7 @@ function(mirror_drive)
     RESULT_VARIABLE status
     OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE
+    ${ECHO_OUTPUT_VARIABLE}
     ERROR_VARIABLE error
     TIMEOUT ${ARGV_TIMEOUT}
     WORKING_DIRECTORY "${ARGV_WORKING_DIRECTORY}"
