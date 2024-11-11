@@ -10,7 +10,7 @@ function(mirror_drive)
   )
 
   if(NOT DRIVE_CORESTORE_DIR)
-    set(DRIVE_CORESTORE_DIR "${CMAKE_BINARY_DIR}/corestore")
+    set(DRIVE_CORESTORE_DIR "${CMAKE_BINARY_DIR}/_drive")
   endif()
 
   if(ARGV_WORKING_DIRECTORY)
