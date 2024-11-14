@@ -12,7 +12,8 @@ const [
   prefix,
   checkout,
   source,
-  destination
+  destination,
+  timeout
 ] = process.argv.slice(2)
 
 const symbols = {
@@ -22,6 +23,8 @@ const symbols = {
 }
 
 mirror(source, destination)
+
+const deadline = setTimeout(() => { throw new Error('Mirroring timed out') }, +timeout * 1000)
 
 async function mirror (source, destination) {
   const store = new Corestore(path.resolve(cwd, storage))
@@ -35,6 +38,8 @@ async function mirror (source, destination) {
   for await (const entry of source.mirror(destination, { prefix, prune: false })) {
     console.log(`${symbols[entry.op]} ${entry.key}`)
   }
+
+  clearTimeout(deadline)
 
   await swarm.destroy()
 }

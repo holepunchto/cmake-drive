@@ -28,7 +28,7 @@ function(mirror_drive)
   endif()
 
   if(NOT ARGV_TIMEOUT)
-    set(ARGV_TIMEOUT 600)
+    set(ARGV_TIMEOUT 1800) # 30 minutes
   endif()
 
   set(args
@@ -38,6 +38,7 @@ function(mirror_drive)
     "${ARGV_CHECKOUT}"
     "${ARGV_SOURCE}"
     "${ARGV_DESTINATION}"
+    "${ARGV_TIMEOUT}"
   )
 
   if(CMAKE_HOST_WIN32)
@@ -62,16 +63,11 @@ function(mirror_drive)
     OUTPUT_VARIABLE output
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_VARIABLE error
-    TIMEOUT ${ARGV_TIMEOUT}
     WORKING_DIRECTORY "${ARGV_WORKING_DIRECTORY}"
   )
 
   if(NOT status EQUAL 0)
-    if(status MATCHES "[0-9]+")
-      message(FATAL_ERROR "${error}")
-    else()
-      message(FATAL_ERROR "${status}")
-    endif()
+    message(FATAL_ERROR "${error}")
   endif()
 
   message(CONFIGURE_LOG
