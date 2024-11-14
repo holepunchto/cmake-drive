@@ -67,7 +67,11 @@ function(mirror_drive)
   )
 
   if(NOT status EQUAL 0)
-    message(FATAL_ERROR "${error}")
+    if(status MATCHES "[0-9]+")
+      message(FATAL_ERROR "${error}")
+    else()
+      message(FATAL_ERROR "${status}")
+    endif()
   endif()
 
   message(CONFIGURE_LOG
