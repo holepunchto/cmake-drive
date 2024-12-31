@@ -1,6 +1,6 @@
 {
   "name": "cmake-drive",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Drive utilities for CMake",
   "files": [
     "*.cmake",
