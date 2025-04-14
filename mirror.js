@@ -22,7 +22,7 @@ const deadline = setTimeout(() => {
 }, +timeout * 1000)
 
 async function mirror(source, destination) {
-  const store = new Corestore(path.resolve(cwd, storage))
+  const store = new Corestore(path.resolve(cwd, storage), { allowBackup: true })
   const swarm = new Hyperswarm().on('connection', (socket) =>
     store.replicate(socket)
   )
