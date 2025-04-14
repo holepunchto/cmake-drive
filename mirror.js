@@ -6,15 +6,8 @@ const Hyperdrive = require('hyperdrive')
 const Localdrive = require('localdrive')
 const id = require('hypercore-id-encoding')
 
-const [
-  storage,
-  cwd,
-  prefix,
-  checkout,
-  source,
-  destination,
-  timeout
-] = process.argv.slice(2)
+const [storage, cwd, prefix, checkout, source, destination, timeout] =
+  process.argv.slice(2)
 
 const symbols = {
   add: '+',
@@ -24,18 +17,25 @@ const symbols = {
 
 mirror(source, destination)
 
-const deadline = setTimeout(() => { throw new Error('Mirroring timed out') }, +timeout * 1000)
+const deadline = setTimeout(() => {
+  throw new Error('Mirroring timed out')
+}, +timeout * 1000)
 
-async function mirror (source, destination) {
+async function mirror(source, destination) {
   const store = new Corestore(path.resolve(cwd, storage))
-  const swarm = new Hyperswarm().on('connection', (socket) => store.replicate(socket))
+  const swarm = new Hyperswarm().on('connection', (socket) =>
+    store.replicate(socket)
+  )
 
   source = await open(source, { store, swarm, cwd })
   destination = await open(destination, { store, swarm, cwd })
 
   if (checkout) source = source.checkout(+checkout)
 
-  for await (const entry of source.mirror(destination, { prefix, prune: false })) {
+  for await (const entry of source.mirror(destination, {
+    prefix,
+    prune: false
+  })) {
     console.log(`${symbols[entry.op]} ${entry.key}`)
   }
 
@@ -44,7 +44,7 @@ async function mirror (source, destination) {
   await swarm.destroy()
 }
 
-async function open (key, opts = {}) {
+async function open(key, opts = {}) {
   const { store, swarm, cwd } = opts
 
   if (!isKey(key)) return new Localdrive(path.resolve(cwd, key))
@@ -57,9 +57,7 @@ async function open (key, opts = {}) {
 
     const done = store.findingPeers()
 
-    swarm
-      .flush()
-      .then(done)
+    swarm.flush().then(done)
 
     await drive.core.update()
   }
@@ -67,6 +65,11 @@ async function open (key, opts = {}) {
   return drive
 }
 
-function isKey (key) {
-  return (key.length === 52 || key.length === 64) && key.indexOf('/') === -1 && key.indexOf('\\') === -1 && key.indexOf('.') === -1
+function isKey(key) {
+  return (
+    (key.length === 52 || key.length === 64) &&
+    key.indexOf('/') === -1 &&
+    key.indexOf('\\') === -1 &&
+    key.indexOf('.') === -1
+  )
 }

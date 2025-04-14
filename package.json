@@ -7,7 +7,7 @@
     "*.js"
   ],
   "scripts": {
-    "test": "standard"
+    "test": "prettier . --check"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "localdrive": "^2.1.0"
   },
   "devDependencies": {
-    "standard": "^17.1.2"
+    "prettier": "^3.5.3",
+    "prettier-config-standard": "^7.0.0"
   }
 }
