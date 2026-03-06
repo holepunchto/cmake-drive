@@ -6,8 +6,7 @@ const Hyperdrive = require('hyperdrive')
 const Localdrive = require('localdrive')
 const id = require('hypercore-id-encoding')
 
-const [storage, cwd, prefix, checkout, source, destination, timeout] =
-  process.argv.slice(2)
+const [storage, cwd, prefix, checkout, source, destination, timeout] = process.argv.slice(2)
 
 const symbols = {
   add: '+',
@@ -23,9 +22,7 @@ const deadline = setTimeout(() => {
 
 async function mirror(source, destination) {
   const store = new Corestore(path.resolve(cwd, storage), { allowBackup: true })
-  const swarm = new Hyperswarm().on('connection', (socket) =>
-    store.replicate(socket)
-  )
+  const swarm = new Hyperswarm().on('connection', (socket) => store.replicate(socket))
 
   source = await open(source, { store, swarm, cwd })
   destination = await open(destination, { store, swarm, cwd })
